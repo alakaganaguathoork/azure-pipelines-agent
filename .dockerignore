@@ -1,0 +1,11 @@
+# General files
+Dockerfile*
+docker-compose*
+.dockerignore
+README.md
+LICENSE
+.vscode
+
+
+# Env file
+.env
