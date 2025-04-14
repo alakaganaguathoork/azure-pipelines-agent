@@ -1,0 +1,10 @@
+services:
+  azp-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: azp-agent-linux
+    env_file: 
+      - path: ./.env
+        required: true
+    restart: unless-stopped
