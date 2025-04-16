@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+# My custom fix for inner docker-cli
+echo "Changing docker.sock ownership..."
+sudo chown root:agent /var/run/docker.sock
+
 if [ -z "${AZP_URL}" ]; then
   echo 1>&2 "error: missing AZP_URL environment variable"
   exit 1
