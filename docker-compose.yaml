@@ -1,8 +1,8 @@
 services:
-  azp-agent:
+  local:
+    image: alakaganaguathoork/azure-pipelines-agent:latest
     build:
       context: .
-      dockerfile: Dockerfile
     env_file: 
       - path: ./.env
         required: true

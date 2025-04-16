@@ -74,6 +74,6 @@ docker_start_container() {
 }
 
 export_env_vars
-docker_build_image
+# docker_build_image
 docker_create_container
 docker_start_container
