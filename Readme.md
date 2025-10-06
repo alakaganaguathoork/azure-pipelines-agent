@@ -6,3 +6,6 @@
 or just run the `./start_local_agent.sh` in the terminal
 
 My Azure DevOps organization: `https://dev.azure.com/alakaganaguathoork/`
+
+### Notes:
+`docker compose up -d` will start a default agent.

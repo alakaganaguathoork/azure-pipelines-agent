@@ -17,6 +17,7 @@ RUN apk add docker-cli
 # Install Azure CLI
 RUN pip install --upgrade pip
 RUN pip install azure-cli
+RUN pip install awscli
 
 WORKDIR /azp/
 COPY ./start.sh ./

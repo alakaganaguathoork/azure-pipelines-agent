@@ -22,7 +22,7 @@ export_env_vars() {
                 value="${value%\"}"
                 value="${value#\"}"
                 
-                echo "Exporting: $key=$value"
+                # echo "Exporting: $key=$value"
                 export "$key=$value"
             done < .env
         else
@@ -50,10 +50,13 @@ docker_create_container() {
 
     if [[ -z "$running_container_id" ]]; then
         echo "+ + + + + Creating agent's container..."
-
+        # for docker default mode 
+            # -v /var/run/docker.sock:/var/run/docker.sock \
+        # for docker roothless mode use: 
+            # -v /run/user/1000/docker.sock:/var/run/docker.sock \
         docker container create \
                     --restart always \
-                    -v /var/run/docker.sock:/var/run/docker.sock \
+                    -v /run/user/1000/docker.sock:/var/run/docker.sock \
                     -e AZP_URL="$AZP_URL" \
                     -e AZP_TOKEN="$AZP_TOKEN" \
                     -e AZP_POOL="$AZP_POOL" \
