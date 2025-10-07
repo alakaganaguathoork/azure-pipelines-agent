@@ -1,9 +1,9 @@
 name: 'dockerBuild-$(Date:yyyy-MM-dd)$(Rev:.r)'
 
 trigger:
-  branches:
+  paths: 
     include:
-      - main
+      - push-dockerfile.yml
 
 variables:
   image_name: "alakaganaguathoork/azp-pipelines-agent"
