@@ -6,9 +6,9 @@ trigger:
       - push-dockerfile.yml
 
 variables:
-  image_name: "alakaganaguathoork/azp-pipelines-agent"
+  image_name: "alakaganaguathoork/azure-pipelines-agent"
   image_tag: "latest"
-  docker_hub_repo: "alakaganaguathoork/azp-pipelines-agent" 
+  docker_hub_repo: "alakaganaguathoork/azure-pipelines-agent" 
 
 pool:
   name: "Local"
@@ -17,18 +17,18 @@ resources:
   containers:
   - container: dockerhub
     type: DockerRegistry
-    image: $(image_tag)
+    image: $(image_name):$(image_tag)
     connection: docker-hub-connector
 
 stages:
   - stage: DockerImageBuildAndPush
-    displayName: "Build and push Docker image"
+    displayName: Build and push Docker image
     jobs:
       - job: DockerBuildPush
         steps:
           - task: Docker@2
             name: DockerLogin
-            displayName: "Login to Docker Hub"
+            displayName: Login to Docker Hub
             inputs:
               command: login
               containerRegistry: docker-hub-connector
@@ -36,22 +36,41 @@ stages:
           
           - task: Docker@2
             name: DockerBuildImage
-            displayName: "Build Docker image"
+            displayName: Build Docker image
+            variables:
+              isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
             inputs:
-              # buildContext: app/
+              buildContext: .
               command: build
               containerRegistry: docker-hub-connector
               repository: $(docker_hub_repo)
-              dockerfile: ./Dockerfile
-              tags: "$(image_tag)"
+              dockerfile: ./Dockerfile-alpine
+              tags: $(image_tag)
+            condition:
+               eq(variables.isMain, true))
+
+          - task: Docker@2
+            name: DockerBuildImage
+            displayName: Build Docker image
+            variables:
+              isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+            inputs:
+              buildContext: .
+              command: build
+              containerRegistry: docker-hub-connector
+              repository: $(docker_hub_repo)
+              dockerfile: ./Dockerfile-ubuntu
+              tags: $(image_tag)
+            condition:
+               eq(variables.isMain, false))
           
           - task: Docker@2
             name: DockerPushImage
-            displayName: "Push Docker image to Docker Hub"
+            displayName: Push Docker image to Docker Hub
             inputs:
               command: push
               containerRegistry: docker-hub-connector
               repository: $(docker_hub_repo)
-              tags: "$(image_tag)"
+              tags: $(image_tag)
               
 
