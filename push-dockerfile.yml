@@ -4,6 +4,8 @@ trigger:
   paths: 
     include:
       - push-dockerfile.yml
+      - Dockerfile-alpine
+      - Dockerfile-ubuntu
 
 variables:
   image_name: "alakaganaguathoork/azure-pipelines-agent"

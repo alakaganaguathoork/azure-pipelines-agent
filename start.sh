@@ -4,7 +4,13 @@ set -e
 
 # My custom fix for inner docker-cli
 echo "Changing docker.sock ownership..."
-sudo chown root:agent /var/run/docker.sock
+if [[ ${TARGETARCH} == "linux-musl-x64" ]]; then
+  echo "Alpine"
+  sudo chown root:wheel /var/run/docker.sock
+else
+  echo "Ubuntu"
+  sudo chown root:agent /var/run/docker.sock
+fi
 
 if [ -z "${AZP_URL}" ]; then
   echo 1>&2 "error: missing AZP_URL environment variable"
