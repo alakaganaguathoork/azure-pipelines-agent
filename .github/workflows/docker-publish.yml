@@ -75,9 +75,11 @@ jobs:
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
         with:
           context: .
+          # file: ./Dockerfile-alpine
+          file: ${{ github.ref == 'refs/heads/main' && './Dockerfile-alpine' || './Dockerfile-ubuntu' }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ env.IMAGE_NAME }}
+          labels: latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
