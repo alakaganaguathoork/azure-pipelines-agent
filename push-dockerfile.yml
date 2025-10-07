@@ -46,7 +46,7 @@ stages:
               dockerfile: ./Dockerfile-alpine
               tags: $(image_tag)
             condition:
-               eq(variables.isMain, true))
+               eq(variables.isMain, true)
 
           - task: Docker@2
             name: DockerBuildImage
@@ -59,7 +59,7 @@ stages:
               dockerfile: ./Dockerfile-ubuntu
               tags: $(image_tag)
             condition:
-               eq(variables.isMain, false))
+               eq(variables.isMain, false)
           
           - task: Docker@2
             name: DockerPushImage
