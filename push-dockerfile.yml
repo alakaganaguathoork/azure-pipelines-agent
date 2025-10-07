@@ -9,6 +9,7 @@ variables:
   image_name: "alakaganaguathoork/azure-pipelines-agent"
   image_tag: "latest"
   docker_hub_repo: "alakaganaguathoork/azure-pipelines-agent" 
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
 
 pool:
   name: "Local"
@@ -37,8 +38,6 @@ stages:
           - task: Docker@2
             name: DockerBuildImage
             displayName: Build Docker image
-            variables:
-              isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
             inputs:
               buildContext: .
               command: build
@@ -52,8 +51,6 @@ stages:
           - task: Docker@2
             name: DockerBuildImage
             displayName: Build Docker image
-            variables:
-              isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
             inputs:
               buildContext: .
               command: build
