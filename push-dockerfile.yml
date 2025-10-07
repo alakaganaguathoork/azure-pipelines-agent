@@ -36,8 +36,8 @@ stages:
               repository: $(docker_hub_repo)
           
           - task: Docker@2
-            name: DockerBuildImage
-            displayName: Build Docker image
+            name: DockerBuildImageAlpine
+            displayName: Build Docker image Alpine
             inputs:
               buildContext: .
               command: build
@@ -49,8 +49,8 @@ stages:
                eq(variables.isMain, true)
 
           - task: Docker@2
-            name: DockerBuildImage
-            displayName: Build Docker image
+            name: DockerBuildImageUbuntu
+            displayName: Build Docker image Ubuntu
             inputs:
               buildContext: .
               command: build
