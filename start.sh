@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -e
 
 # My custom fix for inner docker-cli
